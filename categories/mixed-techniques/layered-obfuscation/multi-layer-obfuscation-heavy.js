@@ -2285,46 +2285,4 @@
             return 'ontouchstart' in window || navigator.maxTouchPoints;
         }
     };
-    
-    // Main execution - this is where the obfuscated payload would be processed
-    // For testing purposes, we'll just run a simple verification
-    var test_payload = "This is a test payload for static analysis tools";
-    var encoded_payload = encode_b64(test_payload);
-    var decoded_payload = atob ? atob(encoded_payload) : encoded_payload;
-    
-    // Simulate processing through multiple layers
-    var layer1 = math_transform_1(decoded_payload, 3);
-    var layer2 = math_transform_2(layer1, 3);
-    var layer3 = bit_shift_encode(layer2, 2);
-    var layer4 = bit_shift_decode(layer3, 2);
-    var layer5 = string_reverse(layer4);
-    var layer6 = string_reverse(layer5);
-    var layer7 = caesar_cipher(layer6, 5);
-    var layer8 = caesar_cipher(layer7, -5);
-    var layer9 = xor_encrypt(layer8, "key");
-    var layer10 = xor_encrypt(layer9, "key");
-    
-    // Final verification
-    if (layer10 === test_payload) {
-        //console.log("Obfuscation pipeline test: PASSED");
-    } else {
-        //console.log("Obfuscation pipeline test: FAILED");
-    }
-    
-    // Export utilities for testing
-    global.ObfuscationTestSuite = {
-        encode_b64: encode_b64,
-        math_transform_1: math_transform_1,
-        math_transform_2: math_transform_2,
-        bit_shift_encode: bit_shift_encode,
-        bit_shift_decode: bit_shift_decode,
-        array_scramble: array_scramble,
-        array_unscramble: array_unscramble,
-        fake_compress: fake_compress,
-        fake_decompress: fake_decompress,
-        string_reverse: string_reverse,
-        caesar_cipher: caesar_cipher,
-        xor_encrypt: xor_encrypt
-    };
-    
 })(typeof window !== 'undefined' ? window : global);

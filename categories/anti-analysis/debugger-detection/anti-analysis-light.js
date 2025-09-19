@@ -4,7 +4,6 @@
  * Intended For: Static Analysis Tool Testing
  * Malicious: No
  */
-
 (function() {
     'use strict';
     
@@ -333,86 +332,4 @@
     var virtualKeyboardDetection = function() {
         return !navigator.virtualKeyboard;
     };
-    
-    // Main execution
-    var runDetectionSuite = function() {
-        var results = {
-            debugger: detectDebugger(),
-            console: detectConsole(),
-            timing: timingCheck(),
-            devtools: devtoolsDetection(),
-            functionLength: checkFunctionLength(),
-            toString: toStringDetection(),
-            environment: environmentChecks(),
-            performance: performanceMonitor(),
-            memory: memoryCheck(),
-            callStack: inspectCallStack(),
-            regexp: regexpDetection(),
-            date: dateManipulation(),
-            checksum: selfChecksum(),
-            proxy: proxyDetection(),
-            canvas: canvasDetection(),
-            webrtc: webrtcDetection(),
-            battery: batteryDetection(),
-            geolocation: geolocationDetection(),
-            touch: touchDetection(),
-            cookie: cookieDetection(),
-            localStorage: localStorageDetection(),
-            sessionStorage: sessionStorageDetection(),
-            indexedDB: indexedDBDetection(),
-            webSQL: webSQLDetection(),
-            appCache: appCacheDetection(),
-            serviceWorker: serviceWorkerDetection(),
-            notification: notificationDetection(),
-            vibration: vibrationDetection(),
-            ambientLight: ambientLightDetection(),
-            proximity: proximityDetection(),
-            orientation: orientationDetection(),
-            motion: motionDetection(),
-            networkInfo: networkInfoDetection(),
-            bluetooth: bluetoothDetection(),
-            usb: usbDetection(),
-            midi: midiDetection(),
-            mediaDevices: mediaDevicesDetection(),
-            speechRecognition: speechRecognitionDetection(),
-            speechSynthesis: speechSynthesisDetection(),
-            paymentRequest: paymentRequestDetection(),
-            clipboard: clipboardDetection(),
-            share: shareDetection(),
-            wakeLock: wakeLockDetection(),
-            idle: idleDetection(),
-            contactPicker: contactPickerDetection(),
-            fileSystem: fileSystemDetection(),
-            virtualKeyboard: virtualKeyboardDetection()
-        };
-        
-        // Return true if any detection triggered
-        for (var key in results) {
-            if (results[key]) {
-                return true;
-            }
-        }
-        return false;
-    };
-    
-    // Execute detection suite
-    var detected = runDetectionSuite();
-    
-    // If detection triggered, perform harmless action
-    if (detected) {
-        console.log("Analysis environment detected");
-    } else {
-        console.log("Normal execution environment");
-    }
-    
-    // Export for testing
-    if (typeof window !== 'undefined') {
-        window.AntiAnalysisLight = {
-            detectDebugger: detectDebugger,
-            detectConsole: detectConsole,
-            timingCheck: timingCheck,
-            devtoolsDetection: devtoolsDetection,
-            runDetectionSuite: runDetectionSuite
-        };
-    }
 })();

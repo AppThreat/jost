@@ -4,7 +4,6 @@
  * Intended For: Static Analysis Tool Testing
  * Malicious: No
  */
-
 (function(root, factory) {
     'use strict';
     
@@ -605,95 +604,4 @@
             return scrambled;
         }
     };
-    
-    // Main execution
-    var detector = new DetectionEngine(config);
-    var results = detector.run();
-    
-    // Obfuscate results for additional challenge
-    var obfuscatedResults = Obfuscator.scramble(results);
-    
-    // Export API
-    return {
-        version: '1.0.0',
-        config: config,
-        detect: function() {
-            return detector.run();
-        },
-        getResults: function() {
-            return obfuscatedResults;
-        },
-        utils: utils,
-        DetectionEngine: DetectionEngine,
-        detectors: {
-            DebuggerDetector: DebuggerDetector,
-            TimingDetector: TimingDetector,
-            MemoryDetector: MemoryDetector,
-            ConsoleDetector: ConsoleDetector,
-            DOMDetector: DOMDetector,
-            NetworkDetector: NetworkDetector,
-            APIDetector: APIDetector,
-            EnvironmentDetector: EnvironmentDetector,
-            FingerprintDetector: FingerprintDetector,
-            BehaviorDetector: BehaviorDetector
-        }
-    };
 }));
-
-// Additional self-defense mechanisms
-(function() {
-    'use strict';
-    
-    // Protect against instrumentation
-    var protect = function() {
-        // Override common analysis functions
-        var originals = {
-            toString: Function.prototype.toString,
-            valueOf: Object.prototype.valueOf,
-            hasOwnProperty: Object.prototype.hasOwnProperty
-        };
-        
-        // Restore originals periodically
-        setInterval(function() {
-            Function.prototype.toString = originals.toString;
-            Object.prototype.valueOf = originals.valueOf;
-            Object.prototype.hasOwnProperty = originals.hasOwnProperty;
-        }, 1000);
-        
-        // Detect function tampering
-        var checkTampering = function() {
-            return Function.prototype.toString !== originals.toString ||
-                   Object.prototype.valueOf !== originals.valueOf;
-        };
-        
-        return checkTampering();
-    };
-    
-    // Runtime integrity checking
-    var integrity = {
-        checksum: function() {
-            // Calculate script checksum
-            var script = document.currentScript;
-            if (script) {
-                return utils.hash(script.innerHTML);
-            }
-            return 0;
-        },
-        
-        verify: function(expected) {
-            return this.checksum() === expected;
-        }
-    };
-    
-    // Execute protection
-    var isProtected = protect();
-    
-    // Export for testing
-    if (typeof window !== 'undefined') {
-        window.AntiAnalysisHeavyProtection = {
-            protect: protect,
-            integrity: integrity,
-            isProtected: isProtected
-        };
-    }
-})();

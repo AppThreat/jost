@@ -4,7 +4,6 @@
  * Intended For: Static Analysis Tool Testing
  * Malicious: No
  */
-
 (function() {
     'use strict';
     
@@ -293,53 +292,4 @@
             return 0;
         }
     };
-    
-    // Main execution for testing
-    var testResults = {
-        condition1: condition1(5, 3),
-        condition2: condition2(1, 2, 3),
-        switchObfuscation: switchObfuscation(3),
-        withDeadCode: withDeadCode(10),
-        loopWithBreaks: loopWithBreaks(10),
-        complexChain: complexChain(1, 0, 0),
-        jumpTable: jumpTable(0, 5, 3),
-        conditionalAssignment: conditionalAssignment(true),
-        ternaryObfuscation: ternaryObfuscation(10, 5),
-        multipleExits: multipleExits(50),
-        conditionalInit: conditionalInit('number'),
-        conditionalLoop: conditionalLoop(5),
-        earlyReturns: earlyReturns(42),
-        conditionalProperty: conditionalProperty({test: 'value'}, 'test'),
-        nestedTernary: nestedTernary(3, 2, 1),
-        conditionalArray: conditionalArray([1, 2, 3], 1),
-        stateMachine: stateMachine(5),
-        conditionalCalls: conditionalCalls('add', 10, 5)
-    };
-    
-    // Export for testing
-    if (typeof window !== 'undefined') {
-        window.ControlFlowLight = {
-            condition1: condition1,
-            condition2: condition2,
-            switchObfuscation: switchObfuscation,
-            withDeadCode: withDeadCode,
-            loopWithBreaks: loopWithBreaks,
-            complexChain: complexChain,
-            jumpTable: jumpTable,
-            conditionalAssignment: conditionalAssignment,
-            ternaryObfuscation: ternaryObfuscation,
-            multipleExits: multipleExits,
-            conditionalInit: conditionalInit,
-            conditionalLoop: conditionalLoop,
-            earlyReturns: earlyReturns,
-            conditionalProperty: conditionalProperty,
-            nestedTernary: nestedTernary,
-            conditionalArray: conditionalArray,
-            stateMachine: stateMachine,
-            conditionalCalls: conditionalCalls,
-            testResults: testResults
-        };
-    }
-    
-    return testResults;
 })();
