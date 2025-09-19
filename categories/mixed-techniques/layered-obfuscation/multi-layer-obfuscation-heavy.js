@@ -2285,4 +2285,125 @@
             return 'ontouchstart' in window || navigator.maxTouchPoints;
         }
     };
+    
+    // Main execution - this is where the obfuscated payload would be processed
+    // For testing purposes, we'll just run a simple verification
+    var test_payload = "This is a test payload for static analysis tools";
+    var encoded_payload = encode_b64(test_payload);
+    var decoded_payload = typeof global.atob !== 'undefined' ? global.atob(encoded_payload) : encoded_payload; // Source: encoded_payload
+
+    // Simulate processing through multiple layers
+    var layer1 = math_transform_1(decoded_payload, 3); // Source: decoded_payload
+    var layer2 = math_transform_2(layer1, 3); // Source: layer1
+    var layer3 = bit_shift_encode(layer2, 2); // Source: layer2
+    var layer4 = bit_shift_decode(layer3, 2); // Source: layer3
+    var layer5 = string_reverse(layer4); // Source: layer4
+    var layer6 = string_reverse(layer5); // Source: layer5
+    var layer7 = caesar_cipher(layer6, 5); // Source: layer6
+    var layer8 = caesar_cipher(layer7, -5); // Source: layer7
+    var layer9 = xor_encrypt(layer8, "key"); // Source: layer8
+    var layer10 = xor_encrypt(layer9, "key"); // Source: layer9
+
+    // Additional processing chains for more data flow
+    var numeric_data = numeric_encode(test_payload); // Source: test_payload
+    var decoded_numeric = numeric_decode(numeric_data); // Source: numeric_data
+    var hex_data = to_hex(decoded_numeric); // Source: decoded_numeric
+    var from_hex_data = from_hex(hex_data); // Source: hex_data
+
+    var caesar_data = caesar_cipher(test_payload, 13); // Source: test_payload
+    var rot13_data = encoding_utils.rot13(caesar_data); // Source: caesar_data
+
+    var segmented_data = segment_data(test_payload, 5); // Source: test_payload
+    var reassembled_data = reassemble_data(segmented_data); // Source: segmented_data
+
+    var padded_data = add_padding(test_payload, 'X', 100); // Source: test_payload
+    var unpadded_data = remove_padding(padded_data, 'X'); // Source: padded_data
+
+    // Simulate array and object manipulation
+    var test_array = [1, 2, 3, 4, 5];
+    var scrambled_array_obj = array_scramble(test_array); // Source: test_array
+    var unscrambled_array = array_unscramble(scrambled_array_obj.data, scrambled_array_obj.map); // Source: scrambled_array_obj
+
+    var test_obj = { a: 1, b: 2, c: 3 };
+    var scrambled_obj = object_scramble(test_obj); // Source: test_obj
+
+    // Simulate compression/decompression chain
+    var fake_compressed = fake_compress(test_payload); // Source: test_payload
+    var fake_decompressed = fake_decompress(fake_compressed); // Source: fake_compressed
+
+    // Final verification - This could be a sink if the tool tracks string comparisons
+    if (layer10 === test_payload && from_hex_data === test_payload && reassembled_data === test_payload && unpadded_data === test_payload && fake_decompressed === test_payload) {
+        // Potential sink: console.log outputting processed data
+        if (typeof console !== 'undefined' && console.log) {
+              console.log("Obfuscation pipeline test: PASSED"); // Sink: console.log
+              console.log("Final processed data:", layer10); // Sink: console.log, Source: layer10
+        }
+    } else {
+        if (typeof console !== 'undefined' && console.log) {
+            console.log("Obfuscation pipeline test: FAILED"); // Sink: console.log
+            // Potential sink: logging intermediate data for debugging analysis
+            console.log("Layer 10 output:", layer10); // Sink: console.log, Source: layer10
+            console.log("Expected:", test_payload); // Sink: console.log, Source: test_payload
+        }
+    }
+
+    // Export utilities for testing - This makes global variables potential sources/sinks
+    var export_target = typeof window !== 'undefined' ? window : (typeof global !== 'undefined' ? global : (typeof self !== 'undefined' ? self : {}));
+    if (export_target) {
+        export_target.ObfuscationTestSuite = {
+            encode_b64: encode_b64,
+            math_transform_1: math_transform_1,
+            math_transform_2: math_transform_2,
+            bit_shift_encode: bit_shift_encode,
+            bit_shift_decode: bit_shift_decode,
+            array_scramble: array_scramble,
+            array_unscramble: array_unscramble,
+            fake_compress: fake_compress,
+            fake_decompress: fake_decompress,
+            string_reverse: string_reverse,
+            caesar_cipher: caesar_cipher,
+            xor_encrypt: xor_encrypt,
+            // Add processed data to exports - These exports are potential sinks
+            testData: {
+                original: test_payload, // Source: test_payload
+                finalProcessed: layer10, // Source: layer10
+                hexProcessed: hex_data, // Source: hex_data
+                arrayProcessed: unscrambled_array // Source: unscrambled_array
+            }
+        };
+    }
+
+    // Additional explicit function calls to increase data flow paths
+    // These create more opportunities for analysis tools to track variables
+    var util_test_array = [3, 1, 4, 1, 5];
+    var util_sorted = array_utils.unique(util_test_array); // Source: util_test_array
+    var util_shuffled = array_utils.shuffle(util_sorted); // Source: util_sorted
+
+    var util_test_obj = { x: 10, y: 20 };
+    var util_cloned_obj = object_utils.deepClone(util_test_obj); // Source: util_test_obj
+    var util_merged_obj = object_utils.merge(util_cloned_obj, { z: 30 }); // Source: util_cloned_obj
+
+    var util_test_string = "  Hello World  ";
+    var util_trimmed = transformer.trim(util_test_string); // Source: util_test_string
+    var util_camel = transformer.camelCase(util_trimmed); // Source: util_trimmed
+
+    // Example of potential "sink" for data flow analysis (simulated DOM manipulation)
+    if (typeof document !== 'undefined') {
+        var simulated_element = dom_utils.createElement('div', { id: 'test' }, util_camel); // Source: util_camel (sink: simulated DOM property)
+        var rendered_html = dom_utils.render(simulated_element); // Source: simulated_element (sink: simulated DOM output)
+        // In a real browser env, this would be: document.body.innerHTML += rendered_html;
+        // For static analysis, the flow to 'rendered_html' is trackable.
+    }
+
+    // Example of potential "sink" for network simulation (source flows to network request)
+    var network_data = "simulated_data";
+    var network_request_promise = network_sim.get("/api/data"); // Source: network_data (indirectly, as it's simulated)
+    // network_request_promise.then(...) would be a sink for the promise result
+
+    // Example of potential "sink" for storage simulation
+    var storage_key = "test_key";
+    var storage_value = layer8; // Source: layer8
+    var storage_sim_instance = storage_sim();
+    storage_sim_instance.setItem(storage_key, storage_value); // Sink: storage_sim.setItem, Source: storage_value
+    var retrieved_value = storage_sim_instance.getItem(storage_key); // Source: storage_sim.getItem
 })(typeof window !== 'undefined' ? window : global);
