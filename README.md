@@ -1,10 +1,10 @@
-# JOTS - JavaScript Obfuscated Source Testing
+# JOST - JavaScript Obfuscated Source Testing
 
-**JOTS** (JavaScript Obfuscated Source Testing) is a comprehensive repository of categorized JavaScript obfuscation samples designed for testing and evaluating static analysis tools. qwen3-coder was used to generate the payloads and documentation in this repo.
+**JOST** (JavaScript Obfuscated Source Testing) is a comprehensive repository of categorized JavaScript obfuscation samples designed for testing and evaluating static analysis tools. qwen3-coder was used to generate the payloads and documentation in this repo.
 
 ## Purpose
 
-JOTS provides security researchers, tool developers, and analysts with a standardized collection of obfuscated JavaScript code to:
+JOST provides security researchers, tool developers, and analysts with a standardized collection of obfuscated JavaScript code to:
 - Test static analysis tool effectiveness
 - Benchmark detection capabilities
 - Evaluate false positive/negative rates
